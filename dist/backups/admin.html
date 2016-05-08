@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Polymer Starter Kit">
+  <title>PlannerUI</title>
+
+  <!-- Place favicon.ico in the `app/` directory -->
+
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#2E3AA1">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Tile color for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="PSK">
+  <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Production Planner">
+  <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+
+  <!-- Tile icon for Win8 (144x144) -->
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
+
+  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- endbuild -->
+
+    
+    <script src="twilio/temboo.js"></script>
+
+
+  <script type="text/javascript">
+    function resetHandler(event) 
+      {
+                Polymer.dom(event).localTarget.parentElement.reset();
+            }  
+  </script>
+
+
+  <!-- Because this project uses vulcanize this should be your only html import
+       in this file. All other imports should go in elements.html -->
+  <link rel="import" href="elements/elements.html">
+
+  <!-- For shared styles, shared-styles.html import in elements.html -->
+  <style is="custom-style" include="shared-styles"></style>
+</head>
+
+<body unresolved>
+
+  <span id="browser-sync-binding"></span>
+  <template is="dom-bind" id="app">
+
+    <paper-drawer-panel id="paperDrawerPanel" responsive-width="700px">
+      <!-- Drawer Scroll Header Panel -->
+      <paper-scroll-header-panel drawer fixed>
+
+        <!-- Drawer Toolbar -->
+        <paper-toolbar id="drawerToolbar">
+          <span class="menu-name">Product List</span>
+        </paper-toolbar>
+
+        <!-- Drawer Content -->
+        <paper-menu attr-for-selected="data-route" selected="[[route]]">
+          <!-- CATEGORY  ROUTE: -->
+            <a data-route="category1" href="{{baseUrl}}">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Category 1</span>
+            </a>
+
+         
+          <!-- CATEGORY  ROUTE: -->
+            <a data-route="category2" href="{{baseUrl}}c2">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Category 2</span>
+            </a>
+
+           <!-- CATEGORY  ROUTE: -->
+            <a data-route="category3" href="{{baseUrl}}c3">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Category 3</span>
+            </a>
+
+           <!-- CATEGORY  ROUTE: -->
+            <a data-route="category4" href="{{baseUrl}}c4">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Category 4</span>
+            </a>
+
+            <!-- CATEGORY  ROUTE: -->
+            <a data-route="category5" href="{{baseUrl}}c5">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Category 5</span>
+            </a>
+
+            <!-- CATEGORY  ROUTE: -->
+            <a data-route="report" href="{{baseUrl}}report">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Report</span>
+            </a>
+
+            <!-- CATEGORY  ROUTE: -->
+            <a data-route="settings" href="{{baseUrl}}settings">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Settings</span>
+            </a>
+
+            <!-- CATEGORY  ROUTE: -->
+            <a data-route="contact" href="{{baseUrl}}contact">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Contact vendor</span>
+            </a>
+
+        </paper-menu>
+      </paper-scroll-header-panel>
+
+      <!-- Main Area -->
+      <paper-scroll-header-panel class="flex" main id="headerPanelMain" condenses noReveal>
+        <!-- Main Toolbar -->
+        <paper-toolbar id="mainToolbar" class="tall">
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle>
+          </paper-icon-button>
+
+          <span class="space"></span>
+
+          
+          <!-- Application name -->
+          <div class="middle middle-container">
+            <div class="app-name">Planner</div>
+          </div>
+
+          <!-- Application sub title -->
+          <div class="bottom bottom-container">
+            <div class="bottom-title">plan for production</div>
+          </div>
+        </paper-toolbar>
+
+        <!-- Main Content -->
+        <div class="content">
+          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+
+              <!-- SECTION FOR CATEGORY -->
+             <section data-route="c1">
+                <!-- PRODUCT PAGE -->
+            
+
+                <!-- PRODUCT NAME -->
+                <paper-material elevation="5">
+                  <p>Product Name : Gillete </p>
+                </paper-material>
+
+                <!-- PRODUCT CODE -->
+                <paper-material elevation="4">
+                  <p>Product code is : 1010  </p>
+                </paper-material>
+
+                <!-- PRODUCT INFO -->
+                <paper-material elevation=2>
+                          
+    <form is="iron-form" id="form" method="post" action="javascript">       
+      <h2>Enter inventory stock :</h2>                               
+      <paper-input name="stock" label="Stock Available" type="number" required></paper-input>
+      <br>
+       <h2>Raw materials Stock:</h2>
+      <paper-input name="r1_fabric" label="Fabric Available(Kg)" type="number" required></paper-input>
+      <paper-input name="r1_die" label="Die Available(Ltr)" type="number" required></paper-input>
+      <paper-input name="r1_fragrance" label="Fragrance(Ltr)" type="number" required></paper-input>
+
+     
+      <paper-button raised onclick="submitHandler(event)">Submit</paper-button>
+      
+      <paper-button raised onclick="resetHandler(event)">Reset</paper-button>
+  </form>
+    <script>
+                
+              
+                function submitHandler(event)
+                {
+                  var firebaseRef = new Firebase("https://blazing-heat-759.firebaseio.com/products/c1");
+                  firebaseRef.update(form.serialize());
+                  event.preventDefault();
+                }
+                   </script>
+   </paper-material>
+
+               
+               </section>
+
+     <!-- ----------------------------------------------------------------------- -->
+
+     <!-- ----------------------------------------------------------------------- -->
+
+
+              <!-- SECTION FOR CATEGORY -->
+             <section data-route="c2">
+                <!-- PRODUCT PAGE -->
+            
+
+                <!-- PRODUCT NAME -->
+                <paper-material elevation="5">
+                  <p>Product Name : Olay    </p>
+                </paper-material>
+
+                <!-- PRODUCT CODE -->
+                <paper-material elevation="5">
+                  <p>Product code is : 2020    </p>
+                </paper-material>
+
+                <!-- PRODUCT INFO -->
+                <paper-material elevation=2>
+    <form is="iron-form" id="form2" method="post" action="">       
+      <h2>Enter inventory stock :</h2>                               
+      <paper-input name="stock" label="Stock Available" type="number" required></paper-input>
+      <br>
+       <h2>Raw materials Stock:</h2>
+      <paper-input name="r2_fabric" label="Fabric Available(Kg)" type="number" required></paper-input>
+      <paper-input name="r2_die" label="Die Available(Ltr)" type="number" required></paper-input>
+      <paper-input name="r2_fragrance" label="Fragrance(Ltr)" type="number" required></paper-input>
+
+     
+      <paper-button raised onclick="submitHandler2(event)">Submit</paper-button>
+      
+      <paper-button raised onclick="resetHandler(event)">Reset</paper-button>
+  </form>
+    <script>
+                
+                
+                function submitHandler2(event)
+                {
+                  var firebaseRef2 = new Firebase("https://blazing-heat-759.firebaseio.com/products/c2");
+                  firebaseRef2.update(form2.serialize());
+                  event.preventDefault();
+                }
+                   </script>
+</paper-material>
+  
+               
+       </section>
+             
+                   
+     <!-- ----------------------------------------------------------------------- -->
+
+     <!-- ----------------------------------------------------------------------- -->
+
+            <!-- SECTION FOR CATEGORY -->
+             <section data-route="c3">
+                <!-- PRODUCT PAGE -->
+            
+
+                <!-- PRODUCT NAME -->
+                <paper-material elevation="5">
+                  <p>Product Name : NyQuil  </p>
+                </paper-material>
+
+                <!-- PRODUCT CODE -->
+                <paper-material elevation="5">
+                  <p>Product code is : 3030    </p>
+                </paper-material>
+
+                <!-- PRODUCT INFO -->
+               
+                   <paper-material elevation=3>
+    <form is="iron-form" id="form3" method="post" action="">       
+      <h2>Enter inventory stock :</h2>                               
+      <paper-input name="stock" label="Stock Available" type="number" required></paper-input>
+      <br>
+       <h2>Raw materials Stock:</h2>
+      <paper-input name="r3_fabric" label="Fabric Available(Kg)" type="number" required></paper-input>
+      <paper-input name="r3_die" label="Die Available(Ltr)" type="number" required></paper-input>
+      <paper-input name="r3_fragrance" label="Fragrance(Ltr)" type="number" required></paper-input>
+
+     
+      <paper-button raised onclick="submitHandler3(event)">Submit</paper-button>
+      
+      <paper-button raised onclick="resetHandler(event)">Reset</paper-button>
+  </form>
+    <script>
+                
+                
+                function submitHandler3(event)
+                {
+                  var firebaseRef3 = new Firebase("https://blazing-heat-759.firebaseio.com/products/c3");
+                  firebaseRef3.update(form3.serialize());
+                  event.preventDefault();
+                }
+                   </script>
+</paper-material>
+                
+              </section>
+
+     <!-- ----------------------------------------------------------------------- -->
+
+     <!-- ----------------------------------------------------------------------- -->
+
+
+              <!-- SECTION FOR CATEGORY -->
+             <section data-route="c4">
+                <!-- PRODUCT PAGE -->
+            
+
+                <!-- PRODUCT NAME -->
+                <paper-material elevation="5">
+                  <p>Product Name : Head& Shoulders  </p>
+                </paper-material>
+
+                <!-- PRODUCT CODE -->
+                <paper-material elevation="5">
+                  <p>Product code is : 4040    </p>
+                </paper-material>
+
+                <!-- PRODUCT INFO -->
+                <paper-material elevation=2>
+               <form is="iron-form" id="form4" method="post" action="">       
+      <h2>Enter inventory stock :</h2>                               
+      <paper-input name="stock" label="Stock Available" type="number" required></paper-input>
+      <br>
+       <h2>Raw materials Stock:</h2>
+      <paper-input name="r4_fabric" label="Fabric Available(Kg)" type="number" required></paper-input>
+      <paper-input name="r4_die" label="Die Available(Ltr)" type="number" required></paper-input>
+      <paper-input name="r4_fragrance" label="Fragrance(Ltr)" type="number" required></paper-input>
+
+     
+      <paper-button raised onclick="submitHandler4(event)">Submit</paper-button>
+      
+      <paper-button raised onclick="resetHandler(event)">Reset</paper-button>
+  </form>
+    <script>
+                
+                
+                function submitHandler4(event)
+                {
+                  var firebaseRef4 = new Firebase("https://blazing-heat-759.firebaseio.com/products/c4");
+                  firebaseRef4.update(form4.serialize());
+                  event.preventDefault();
+                }
+                   </script>
+</paper-material>
+                
+                
+              </section>
+
+       <!-- ----------------------------------------------------------------------- -->
+
+       <!-- ----------------------------------------------------------------------- -->
+
+
+              <!-- SECTION FOR CATEGORY -->
+             <section data-route="c5">
+                <!-- PRODUCT PAGE -->
+          
+                <!-- PRODUCT NAME -->
+                <paper-material elevation="5">
+                  <p>Product Name : Ivory Soap </p>
+                </paper-material>
+
+                <!-- PRODUCT CODE -->
+                <paper-material elevation="5">
+                  <p>Product code is : 5050    </p>
+                </paper-material>
+
+                <!-- PRODUCT INFO -->
+                 
+                   <paper-material elevation=2>
+    <form is="iron-form" id="form5" method="post" action="">       
+      <h2>Enter inventory stock :</h2>                               
+      <paper-input name="stock" label="Stock Available" type="number" required></paper-input>
+      <br>
+       <h2>Raw materials Stock:</h2>
+      <paper-input name="r5_fabric" label="Fabric Available(Kg)" type="number" required></paper-input>
+      <paper-input name="r5_die" label="Die Available(Ltr)" type="number" required></paper-input>
+      <paper-input name="r5_fragrance" label="Fragrance(Ltr)" type="number" required></paper-input>
+
+     
+      <paper-button raised onclick="submitHandler5(event)">Submit</paper-button>
+      
+      <paper-button raised onclick="resetHandler(event)">Reset</paper-button>
+  </form>
+    <script>
+                
+                
+                function submitHandler5(event)
+                {
+                  var firebaseRef5 = new Firebase("https://blazing-heat-759.firebaseio.com/products/c5");
+                  firebaseRef5.update(form5.serialize());
+                  event.preventDefault();
+                }
+                   </script>
+</paper-material>
+    
+              </section>
+
+
+  <!-- ----------------------------------------------------------------------- -->
+
+   <!-- ----------------------------------------------------------------------- -->
+
+<section data-route="report">
+<paper-toolbar>
+<paper-tabs selected="{{selected}}" noink style="width: 600px;">
+  <paper-tab>Analysis</paper-tab>
+  <paper-tab>Real-time</paper-tab>
+  <paper-tab>Dashboard</paper-tab>
+  <paper-tab>something</paper-tab>
+</paper-tabs>
+</paper-toolbar>
+
+<iron-pages selected="{{selected}}">
+  <div>
+      <script type="text/javascript">
+      var minCat,minStock;
+      var ref = new Firebase("https://blazing-heat-759.firebaseio.com/products");
+      ref.orderByChild("stock").limitToFirst(1).on("child_added", function(snapshot) {
+      minCat=snapshot.key();
+      minStock=snapshot.val().stock;
+      document.getElementById("cat_show").innerHTML = 
+      "Category "+ minCat + " is the minimum in stock.we've only " + minStock +" no's";});
+
+      ref.on("value", function(snapshot) {
+      var whol=snapshot.val();
+      var t11=whol.c1.threshold1;
+      var t12=whol.c1.threshold2;
+      var t13=whol.c1.threshold3;
+
+      var t21=whol.c2.threshold1;
+      var t22=whol.c2.threshold2;
+      var t23=whol.c2.threshold3;
+
+      var t31=whol.c3.threshold1;
+      var t32=whol.c3.threshold2;
+      var t33=whol.c3.threshold3;
+
+      var t41=whol.c4.threshold1;
+      var t42=whol.c4.threshold2;
+      var t43=whol.c4.threshold3;
+
+      var t51=whol.c5.threshold1;
+      var t52=whol.c5.threshold2;
+      var t53=whol.c5.threshold3;
+
+      
+      var raw11=whol.c1.r1_die;       /* raw materials of category 1*/
+      var raw12=whol.c1.r1_fabric;    /*   11=c1->die  12=c1->fab 13=c1->frag*/
+      var raw13=whol.c1.r1_fragrance;
+
+      var raw21=whol.c2.r2_die;       /* raw materials of category 2*/
+      var raw22=whol.c2.r2_fabric;
+      var raw23=whol.c2.r2_fragrance;
+
+      var raw31=whol.c3.r3_die;       /* raw materials of category 3*/
+      var raw32=whol.c3.r3_fabric;
+      var raw33=whol.c3.r3_fragrance;
+
+      var raw41=whol.c4.r4_die;       /* raw materials of category 4*/
+      var raw42=whol.c4.r4_fabric;
+      var raw43=whol.c4.r4_fragrance;
+
+      var raw51=whol.c5.r5_die;       /* raw materials of category 5*/
+      var raw52=whol.c5.r5_fabric;
+      var raw53=whol.c5.r5_fragrance;
+      // document.getElementById("toast2").text="Threshold for raw-materials is "+t11;
+
+      switch(minCat){
+case 'c1' : 
+        if(raw11<t11){document.getElementById("p1").innerHTML=("we have Rawmaterial-1(die) of " +raw11+ " kg in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p1").innerHTML=("Rawmaterial-1(die) available.we've "+raw11);}
+        // console.log("Rm-1(die) of category1 is scarce...notifying vendor");  }   
+        if(raw12<t12){document.getElementById("p2").innerHTML=("we have Rawmaterial-2(fabric) of " +raw12 +" kg in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p2").innerHTML=("Rawmaterial-2(fabric) available.we've "+raw12);}
+        // console.log("Rm-2(fabric) of category1 is scarce...notifying vendor");}
+        if(raw13<t13){document.getElementById("p3").innerHTML=("we have Rawmaterial-3(Fragrance) of " +raw13 +" Ltr in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p3").innerHTML=("Rawmaterial-3(Fragrance) available.we've "+raw13);}
+        // console.log("Rm-3(Fragrance) of category1 is scarce...notifying vendor");}
+          break;
+
+case 'c2' : 
+        if(raw21<t21){document.getElementById("p1").innerHTML=("we have Rawmaterial-1(die) of " +raw21+ " kg in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p1").innerHTML=("Rawmaterial-1(die) available.we've "+raw21);}
+        // console.log("Rm-1(die) of category2 is scarce...notifying vendor");  }   
+        if(raw22<t22){document.getElementById("p2").innerHTML=("we have Rawmaterial-2(fabric) of " +raw22 +" kg in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p2").innerHTML=("Rawmaterial-2(fabric) available.we've "+raw22);}
+        // console.log("Rm-2(fabric) of category2 is scarce...notifying vendor");}
+        if(raw23<t23){document.getElementById("p3").innerHTML=("we have Rawmaterial-3(Fragrance) of " +raw23 +" Ltr in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p3").innerHTML=("Rawmaterial-3(Fragrance) available.we've "+raw23);}
+        // console.log("Rm-3(Fragrance) of category2 is scarce...notifying vendor");}
+          break;
+
+case 'c3' : 
+        if(raw31<t31){document.getElementById("p1").innerHTML=("we have Rawmaterial-1(die) of " +raw31+ " kg in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p1").innerHTML=("Rawmaterial-1(die) available.we've "+raw31);}
+        // console.log("Rm-1(die) of category3 is scarce...notifying vendor");  }   
+        if(raw32<t32){document.getElementById("p2").innerHTML=("we have Rawmaterial-2(fabric) of " +raw32 +" kg in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p2").innerHTML=("Rawmaterial-2(fabric) available.we've "+raw32);}
+        // console.log("Rm-2(fabric) of category3 is scarce...notifying vendor");}
+        if(raw33<t33){document.getElementById("p3").innerHTML=("we have Rawmaterial-3(Fragrance) of " +raw33 +" Ltr in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p3").innerHTML=("Rawmaterial-3(Fragrance) available.we've "+raw33);}
+        // console.log("Rm-3(Fragrance) of category3 is scarce...notifying vendor");}
+          break;
+
+case 'c4' : 
+        if(raw41<t41){document.getElementById("p1").innerHTML=("we have Rawmaterial-1(die) of " +raw41+ " kg in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p1").innerHTML=("Rawmaterial-1(die) available.we've "+raw41);}
+        // console.log("Rm-1(die) of category4 is scarce...notifying vendor");  }   
+        if(raw42<t42){document.getElementById("p2").innerHTML=("we have Rawmaterial-2(fabric) of " +raw42 +" kg in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p2").innerHTML=("Rawmaterial-2(fabric) available.we've "+raw42);}
+        // console.log("Rm-2(fabric) of category4 is scarce...notifying vendor");}
+        if(raw43<t43){document.getElementById("p3").innerHTML=("we have Rawmaterial-3(Fragrance) of " +raw43 +" Ltr in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p3").innerHTML=("Rawmaterial-3(Fragrance) available.we've "+raw43);}
+        // console.log("Rm-3(Fragrance) of category4 is scarce...notifying vendor");}
+          break;
+
+case 'c5' : 
+        if(raw51<t51){document.getElementById("p1").innerHTML=("we have Rawmaterial-1(die) of " +raw51+ " kg in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p1").innerHTML=("Rawmaterial-1(die) available.we've "+raw51);}
+        // console.log("Rm-1(die) of category5 is scarce...notifying vendor");  }   
+        if(raw52<t52){document.getElementById("p2").innerHTML=("we have Rawmaterial-2(fabric) of " +raw52 +" kg in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p2").innerHTML=("Rawmaterial-2(fabric) available.we've "+raw52);}
+        // console.log("Rm-2(fabric) of category5 is scarce...notifying vendor");}
+        if(raw53<t53){document.getElementById("p3").innerHTML=("we have Rawmaterial-3(Fragrance) of " +raw53 +" Ltr in stock ...i guess its scarce...notifying vendor!");}else{document.getElementById("p3").innerHTML=("Rawmaterial-3(Fragrance) available.we've "+raw53);}
+        // console.log("Rm-3(Fragrance) of category5 is scarce...notifying vendor");}
+          break;
+ default:
+        console.log("something went wrong !");
+
+      }
+
+      }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+      });
+function showcard(){document.getElementById("checkraw").className="kami";}
+      </script>
+      <!-- <paper-toast id="toast0" text="This toast auto-closes after 3 seconds"></paper-toast> -->
+
+      <paper-material id="cat_show" elevation="1"></paper-material>
+      <paper-button raised onclick="showcard();toast2.open();">Check rawmaterials</paper-button>
+      <div id="checkraw" class="marai">
+      <paper-material id="p1" elevation="1"></paper-material>
+      <paper-material id="p2" elevation="1"></paper-material>
+      <paper-material id="p3" elevation="1"></paper-material>
+      <paper-toast id="toast2" class="fit-bottom" text="Applying threshold settings"></paper-toast>
+      </div>
+  </div>
+
+  <div>
+  <paper-material elevatio="3">
+  <h1>Stock</h1>
+    <div id="chart"></div></paper-material>
+    <paper-material elevatio="3">
+  <h1>Demand</h1>
+    <div id="demand"></div></paper-material>
+      <script>
+      var pubnub = PUBNUB.init({
+      publish_key: 'pub-c-3588af66-9bbd-4984-b578-27f5877f17db',
+      subscribe_key: 'sub-c-598e4d8e-e9e4-11e4-91d3-0619f8945a4f',
+      ssl : (('https:' == document.location.protocol) ? true : false)
+      });
+      var channel = "Kcteee";
+      var ref = new Firebase("https://blazing-heat-759.firebaseio.com/products");
+
+      eon.chart({
+        channel: channel,
+        history: true,
+        flow: true,
+        pubnub: pubnub,
+        debug: true,
+
+        generate: {
+          bindto: '#chart',
+          data: {
+            labels: true,
+            type:"bar"
+          }
+        },
+
+        transform: function(a) {
+          return {
+            eon: {
+              'category-1': a[0],
+              'category-2': a[1],
+              'category-3': a[2],
+              'category-4': a[3],
+              'category-5': a[4]
+            }
+          };
+        }
+      });
+      eon.chart({
+        channel: channel,
+        history: true,
+        flow: true,
+        pubnub: pubnub,
+        debug: true,
+
+        generate: {
+          bindto: '#demand',
+          data: {
+            labels: true,
+            type:"donut"
+          },
+         
+        },
+
+        transform: function(a) {
+          return {
+            eon: {
+              'category-1': a[5],
+              'category-2': a[6],
+              'category-3': a[7],
+              'category-4': a[8],
+              'category-5': a[9]
+            }
+          };
+        }
+      });
+  ref.on("value", function(snapshot) {
+
+  var whol=snapshot.val();
+  var i1=whol.c1.stock;
+  var i2=whol.c2.stock;
+  var i3=whol.c3.stock;
+  var i4=whol.c4.stock;
+  var i5=whol.c5.stock;
+  var d1=whol.c1.demand;
+  var d2=whol.c2.demand;
+  var d3=whol.c3.demand;
+  var d4=whol.c4.demand;
+  var d5=whol.c5.demand;
+  pubnub.publish({
+          channel: channel,
+          message: [i1,i2,i3,i4,i5,d1,d2,d3,d4,d5]
+     });
+
+    });
+      </script>
+
+  </div>
+  <div>
+    Master planning !
+  
+  </div>
+</iron-pages>
+      </section>
+         <!-- ----------------------------------------------------------------------- -->
+
+         <!-- ----------------------------------------------------------------------- -->
+<section data-route="settings">
+<style is="custom-style" >
+body {
+    padding: 40px;
+  }
+
+paper-slider {
+    width: 100%;
+  }
+paper-slider.red {
+  --paper-slider-knob-color: var(--paper-red-500);
+  --paper-slider-active-color: var(--paper-red-500);
+  --paper-slider-pin-color: var(--paper-red-500);
+}
+
+paper-slider.green {
+  --paper-slider-knob-color: var(--paper-green-500);
+  --paper-slider-active-color: var(--paper-green-500);
+  --paper-slider-pin-color: var(--paper-green-500);
+
+
+  }
+}
+</style>
+<div class="vertical-section-container">
+<h1>Category-1</h1>
+<div class="vertical section">
+<paper-material elevation="3">
+<div>Threshold 1(die)</div>
+<paper-slider min="50" max="500" pin editable></paper-slider>
+<div>Threshold 2(fabric)</div>
+<paper-slider min="50" class="green" max="500" pin editable></paper-slider>
+<div>Threshold 3(fragrance)</div>
+<paper-slider min="50" class="red" max="500" pin editable></paper-slider>
+</paper-material>
+</div>
+
+<h1>Category-2</h1>
+<div class="vertical section">
+<paper-material elevation="3">
+<div>Threshold 1(die)</div>
+<paper-slider min="50" max="500" pin editable></paper-slider>
+<div>Threshold 2(fabric)</div>
+<paper-slider min="50" class="green" max="500" pin editable></paper-slider>
+<div>Threshold 3(fragrance)</div>
+<paper-slider min="50" class="red" max="500" pin editable></paper-slider>
+</paper-material>
+</div>
+
+<h1>Category-3</h1>
+<div class="vertical section">
+<paper-material elevation="3">
+<div>Threshold 1(die)</div>
+<paper-slider min="50" max="500" pin editable></paper-slider>
+<div>Threshold 2(fabric)</div>
+<paper-slider min="50" class="green" max="500" pin editable></paper-slider>
+<div>Threshold 3(fragrance)</div>
+<paper-slider min="50" class="red" max="500" pin editable></paper-slider>
+</paper-material>
+</div>
+
+<h1>Category-4</h1>
+<div class="vertical section">
+<paper-material elevation="3">
+<div>Threshold 1(die)</div>
+<paper-slider min="50" max="500" pin editable></paper-slider>
+<div>Threshold 2(fabric)</div>
+<paper-slider min="50" class="green" max="500" pin editable></paper-slider>
+<div>Threshold 3(fragrance)</div>
+<paper-slider min="50" class="red" max="500" pin editable></paper-slider>
+</paper-material>
+</div>
+
+<h1>Category-5</h1>
+<div class="vertical section">
+<paper-material elevation="3">
+<div>Threshold 1(die)</div>
+<paper-slider min="50" max="500" pin editable></paper-slider>
+<div>Threshold 2(fabric)</div>
+<paper-slider min="50" class="green" max="500" pin editable></paper-slider>
+<div>Threshold 3(fragrance)</div>
+<paper-slider min="50" class="red" max="500" pin editable></paper-slider>
+</paper-material>
+</div>
+
+</div>
+</section>
+
+
+              <section data-route="contact">
+
+              <!-- CONTACT DETAILS -->
+
+              <paper-material elevation="1">
+                      <p> 
+                          Tiecicon House, Dr. E. Moses Road
+                          Maharashtra
+                          Bombay 400011
+                          India
+                          Phone: 91-22-4964900
+                          Fax: 91-22-4950505                   
+                      </p>
+              </paper-material>
+
+              <!-- DISPLAY MAP -->
+           <paper-material elevation="1">
+               <google-map latitude="30.980500" longitude="+76.801901">
+                 <google-map-marker latitude="30.980500" longitude="+76.801901"
+                       title="Procter & Gamble!" draggable="true" drag-events>
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi91rb7Trn2o54ePqj0EzM3DPXigDR6_iiEiOyovKQzCDSA97Oc3ro1g" />
+                  </google-map-marker>
+              </google-map>
+                           
+           </paper-material>  
+          </section>
+            
+      </paper-scroll-header-panel>
+   </iron-pages>
+</paper-drawer-panel>
+        </div>
+
+    
+
+    <paper-toast id="toast">
+      <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
+    </paper-toast>
+
+    <!-- Uncomment next block to enable Service Worker support (1/2) -->
+    <!--
+    <paper-toast id="caching-complete"
+                 duration="6000"
+                 text="Caching complete! This app will work offline.">
+    </paper-toast>
+
+    <platinum-sw-register auto-register
+                          clients-claim
+                          skip-waiting
+                          base-uri="bower_components/platinum-sw/bootstrap"
+                          on-service-worker-installed="displayInstalledToast">
+      <platinum-sw-cache default-cache-strategy="fastest"
+                         cache-config-file="cache-config.json">
+      </platinum-sw-cache>
+    </platinum-sw-register>
+    -->
+
+  </template>
+
+  <!-- build:js scripts/app.js -->
+  <script src="scripts/app.js"></script>
+  <!-- endbuild-->
+</body>
+</html>
+
+
+
