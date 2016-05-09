@@ -35,7 +35,7 @@
 
   <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="assets/css/style.min.css" title="main">
+   <link rel="stylesheet" href="assets/css/style.min.css" title="main">
 
   <!-- endbuild-->
 
@@ -121,7 +121,7 @@
 
           <!-- Application sub title -->
           <div class="bottom bottom-container">
-            <div class="bottom-title">Personalize your own plan </div>
+            <div class="bottom-title">Personalize your plan </div>
           </div>
         </paper-toolbar>
 
@@ -130,7 +130,7 @@
 <section>
 
 <paper-toolbar>
-<paper-tabs selected="{{selected}}"  autoselect id="wave" noink  style="width: 650px;">
+<paper-tabs selected="{{selected}}" autoselect id="wave" noink  style="width: 650px;" scrollable hideScrollButtons>
   <paper-tab><iron-icon icon="flag"></iron-icon>Make plan</paper-tab>
   <paper-tab><iron-icon icon="room"></iron-icon>map view</paper-tab>
   <paper-tab><iron-icon icon="send"></iron-icon>Checkout</paper-tab>
@@ -138,8 +138,9 @@
 </paper-tabs>
 </paper-toolbar>
 
-<iron-pages selected="{{selected}}">
+<iron-pages selected="{{selected}}" id="planpage">
 <!-- make plan -->
+
 <div>
 <paper-material>
  Select trip type :
@@ -182,9 +183,9 @@ Select Vehicle:
 </paper-material>
 <!-- trip1 -->
 <paper-material elevation="1">
-    <paper-input type="text" label="Start:"  id="start"></paper-input>
-    <paper-input type="text" label="End:" value="{{end1::input}}" id="end" ></paper-input> 
-   <vaadin-date-picker label="Pick a date:"  id="date1" ></vaadin-date-picker>
+    <paper-input type="text" label="Start:" required id="start"></paper-input>
+    <paper-input type="text" label="End:" value="{{end1::input}}" required id="end" ></paper-input> 
+   <vaadin-date-picker label="Pick a date:"  id="date1" required ></vaadin-date-picker>
 </paper-material>
 
 <script type="text/javascript">
@@ -266,7 +267,7 @@ function triptype() {
   }
  
 </style>
-     <paper-button raised class="custom indigo" onclick="wave.selectNext();" type="submit" id="submit"><iron-icon icon="forward"></iron-icon>Next</paper-button> 
+    <!--  <paper-button raised class="custom indigo" onclick="wave.selectNext();" type="submit" id="submit"><iron-icon icon="forward"></iron-icon>Next</paper-button>  -->
      <!-- change to next tab -->
     <!-- 
 <paper-dialog id="dialog">
@@ -286,13 +287,15 @@ function triptype() {
    </paper-dialog> -->
    <!-- </section> -->
    <!-- </paper-material> -->
+      <paper-fab id="submit" style="float:right; right:10px; bottom:10px;
+   " onclick="wave.selectNext()" icon="image:navigate-next" title="next"></paper-fab>
    </div>
 
    <div>
    <style>
   #map {
     overflow: hidden;
-    padding-bottom: 76.25%;
+    padding-bottom: 80.25%;
     position: relative;
     height: 0;
 
@@ -303,10 +306,10 @@ function triptype() {
 <!-- <google-map id="map" latitude="11.0183" longitude="76.9725"></google-map> -->
 
     <div id="map"></div>
-    <br>
-    <br>
-       <paper-button raised  style="text-align: center; margin-left: auto; margin-right: auto;" class="custom indigo" onclick="wave.selectNext()"><iron-icon icon="forward"></iron-icon>Next</paper-button>
-
+        <br>
+       <!-- <paper-button raised  style="text-align: center; margin-left: auto; margin-right: auto;" class="custom indigo" onclick="wave.selectNext()"><iron-icon icon="forward"></iron-icon>Next</paper-button> -->
+   <paper-fab  style="float:right; right:10px; bottom:10px;
+   " onclick="wave.selectNext()" icon="image:navigate-next" title="next"></paper-fab>
    </div>
    <div>
   <!-- 
@@ -328,7 +331,7 @@ function triptype() {
   }
   iron-icon.star:last-of-type { color: var(--paper-grey-500); }
 </style>
-  <paper-card image="dist/assets/images/md/flag.jpg">
+  <paper-card image="/assets/images/md/flag.jpg">
     <div class="card-content">
       <div class="cafe-header">Agenda
         <div class="cafe-location cafe-light">
@@ -407,7 +410,7 @@ border:none;
    &nbsp; &nbsp;<p  id="note"></p>
 
 <!-- <paper-button raised onclick="dialog.open()">Open</paper-button> -->
-     <br> &nbsp;&nbsp;&nbsp;<paper-checkbox onclick="dialog.open()">I agree to terms and Conditions.</paper-checkbox> 
+     <br> &nbsp;&nbsp;&nbsp;<paper-checkbox id="terms" onchange="dialog.open()">I agree to terms and Conditions.</paper-checkbox> 
 
 <br>
 <br>
@@ -439,13 +442,15 @@ border:none;
   </paper-dialog-scrollable>
   <div class="footer">
 
-<paper-button raised style="float:left;" class="custom indigo" onclick="wave.selectNext()">
+<!-- <paper-button raised style="float:left;" class="custom indigo" onclick="wave.selectNext()"> -->
 <!-- <iron-icon icon="backspace"></iron-icon> -->
-Back</paper-button>
+<!-- Back</paper-button> -->
 
-     <paper-button raised style="float:right;" class="custom indigo" onclick="javascript:location.href='https://www.payumoney.com/paybypayumoney/#/119303'">
-     <!-- <iron-icon icon="store"></iron-icon> -->
-     Checkout</paper-button>
+     <!-- <paper-button raised style="float:right;" class="custom indigo" onclick="javascript:location.href='https://www.payumoney.com/paybypayumoney/#/119303'">
+     <iron-icon icon="store"></iron-icon>
+     Checkout</paper-button> -->
+     <paper-fab style="float:left;bottom:10px;" onclick="wave.selectNext();terms.checked=false;" icon="image:navigate-before" title="next"></paper-fab>
+     <paper-fab style="float:right;bottom:10px;" onclick="javascript:location.href='https://www.payumoney.com/paybypayumoney/#/119303'" icon="check" title="checkout"></paper-fab>
   </div>
  
     <!--  <div class="pm-button"><a href="https://www.payumoney.com/paybypayumoney/#/119303"><img src="https://www.payumoney.com//media/images/payby_payumoney/buttons/131.png" /></a></div> -->
@@ -503,7 +508,7 @@ Back</paper-button>
   iron-icon.star:last-of-type { color: var(--paper-grey-500); }
 </style>
 
-  <paper-card image="dist/assets/images/md/ship.jpg">
+  <paper-card image="/assets/images/md/beach.jpg">
     <div class="card-content">
       <div class="cafe-header">Anjappar
         <div class="cafe-location cafe-light">
@@ -561,10 +566,13 @@ function ishotel() {
      <br>
  </paper-material>
    
- 
+     <paper-fab  style="float:right; right:10px; bottom:10px;
+   " onclick="wave.selectNext()" icon="image:navigate-next" title="next"></paper-fab>
    </div>
 
    </iron-pages>
+
+
    </section>
     <!--   <paper-dialog>
   <h2>Header</h2>
@@ -857,13 +865,13 @@ document.getElementById('note').innerHTML='<b>Please pay Rs. ' + Math.round(tota
     <paper-toast id="toast">
       <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
     </paper-toast>
-    <paper-toast id="toast1" duration="0" text="This toast will stay opened until you close it, or open another toast.">
-  <paper-button onclick="toast1.toggle();wave.selectPrevious()" class="yellow-button">Close now!</paper-button>
+    <paper-toast id="toast1" duration="0" text="Please make a plan to view it !!!.">
+  <paper-button onclick="toast1.toggle();planpage.select('0')" class="yellow-button">Close now!</paper-button>
 </paper-toast>
 
     <!-- Uncomment next block to enable Service Worker support (1/2) -->
     
-<!--     <paper-toast id="caching-complete"
+    <paper-toast id="caching-complete"
                  duration="6000"
                  text="Caching complete! This app will work offline.">
     </paper-toast>
@@ -878,7 +886,7 @@ document.getElementById('note').innerHTML='<b>Please pay Rs. ' + Math.round(tota
       </platinum-sw-cache>
     </platinum-sw-register>
     
- -->
+
   </template>
 
   <!-- build:js scripts/app.js -->
