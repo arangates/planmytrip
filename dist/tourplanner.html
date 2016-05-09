@@ -130,7 +130,7 @@
 <section>
 
 <paper-toolbar>
-<paper-tabs selected="{{selected}}" autoselect id="wave" noink  style="width: 650px;" scrollable hideScrollButtons>
+<paper-tabs selected="{{selected}}" autoselect id="wave" noink  style="width: 650px;" >
   <paper-tab><iron-icon icon="flag"></iron-icon>Make plan</paper-tab>
   <paper-tab><iron-icon icon="room"></iron-icon>map view</paper-tab>
   <paper-tab><iron-icon icon="send"></iron-icon>Checkout</paper-tab>
@@ -287,6 +287,9 @@ function triptype() {
    </paper-dialog> -->
    <!-- </section> -->
    <!-- </paper-material> -->
+    <paper-fab id="adding" style="float:left; left:10px; bottom:10px;
+   " onclick="" icon="add" title="add"></paper-fab>
+
       <paper-fab id="submit" style="float:right; right:10px; bottom:10px;
    " onclick="wave.selectNext()" icon="image:navigate-next" title="next"></paper-fab>
    </div>
@@ -297,7 +300,7 @@ function triptype() {
     overflow: hidden;
     padding-bottom: 80.25%;
     position: relative;
-    height: 0;
+    height: 50%;
 
   }
     
@@ -331,7 +334,7 @@ function triptype() {
   }
   iron-icon.star:last-of-type { color: var(--paper-grey-500); }
 </style>
-  <paper-card image="assets/images/md/flag.jpg">
+  <paper-card image="/assets/images/md/flag.jpg">
     <div class="card-content">
       <div class="cafe-header">Agenda
         <div class="cafe-location cafe-light">
@@ -508,7 +511,7 @@ border:none;
   iron-icon.star:last-of-type { color: var(--paper-grey-500); }
 </style>
 
-  <paper-card image="assets/images/md/beach.jpg">
+  <paper-card image="/assets/images/md/beach.jpg">
     <div class="card-content">
       <div class="cafe-header">Anjappar
         <div class="cafe-location cafe-light">
@@ -637,8 +640,8 @@ function planmytrip() {
 
   var directionsDisplay = new google.maps.DirectionsRenderer({ 'draggable': false });
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: {lat: -28.643387, lng: 153.612224},
+    zoom: 4,
+    center: {lat: 11.6139, lng: 77.2090},
     mapTypeControl: true,
     mapTypeControlOptions: {
         style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
@@ -659,6 +662,7 @@ function planmytrip() {
   directionsDisplay.setMap(map);
 
   document.getElementById('submit').addEventListener('click', function() {
+        google.maps.event.trigger(map, 'resize');
     calculateAndDisplayRoute(directionsService, directionsDisplay);
   });
 }
