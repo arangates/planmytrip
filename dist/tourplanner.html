@@ -183,20 +183,25 @@ Select Vehicle:
 </paper-material>
 <!-- trip1 -->
 <paper-material elevation="1">
-    <paper-input type="text" label="Start:" required id="start"></paper-input>
-    <paper-input type="text" label="End:" value="{{end1::input}}" required id="end" ></paper-input> 
+<paper-input type="text" label="Start:" required auto-validate error-message="needs some text!" value="{{end1::input}}" id="start">
+<iron-icon icon="communication:location-on" suffix></iron-icon>
+</paper-input>
+<paper-input type="text" label="End:"  required auto-validate error-message="needs some text!" id="end" >
+    <iron-icon icon="image:landscape" suffix></iron-icon>
+    </paper-input> 
    <vaadin-date-picker label="Pick a date:"  id="date1" required ></vaadin-date-picker>
 </paper-material>
 
 <script type="text/javascript">
 function triptype() {
     if (document.getElementById('isround').focused) {
-        document.getElementById('roundtrip').style.display = 'block';
+        document.getElementById('addbutton').style.display = 'block';
     }
     if (document.getElementById('isone').focused) {
       // document.getElementById('waypoint1').id = 'end';   
-      // document.getElementById('end').id = 'waypoint1';                       
-        document.getElementById('roundtrip').style.display = 'none';
+      // document.getElementById('end').id = 'waypoint1';   
+        document.getElementById('roundtrip').style.display = 'none';                    
+        document.getElementById('addbutton').style.display = 'none';
     }
 
 }
@@ -209,31 +214,49 @@ function triptype() {
   }
 </style>
 <!-- hidden section of make trip-->
+<div id="addbutton" style="display:none">
+
+   <!-- <button onclick="showcard();">Add</button> -->
+   <!-- getting dest. from user -->
+<paper-fab id="adding" style="float:left; left:10px; bottom:10px;" onclick="roundtrip.style.display = 'block';addbutton.style.display = 'none';adding.style.display = 'none';" icon="add" title="Add destinations"></paper-fab>
+
+</div>
+
 <div id="roundtrip" style="display:none">
 
 <paper-material elevation="1">
    <!-- change -->
-     <paper-input type="text"  value="{{end1}}" label="Start:" id=""></paper-input>
-     <paper-input type="text" id="waypoint1" value="{{end2::input}}" label="end:"></paper-input>
+     <paper-input type="text"  value="{{end1}}" label="Start:" disabled id=""></paper-input>
+     <paper-input type="text" id="waypoint1" value="{{end2::input}}" label="Add location">
+<iron-icon icon="maps:add-location" suffix></iron-icon>
+     </paper-input>
+
       <vaadin-date-picker id="date2" label="Pick a date:"></vaadin-date-picker>
 </paper-material>
 
     <paper-material elevation="1">
        <!-- change -->
-     <paper-input type="text"  value="{{end2}}" label="Start:" id=""></paper-input>
- <paper-input type="text" id="waypoint2"  value="{{end3::input}}" label="end:"></paper-input>
+     <paper-input type="text"  value="{{end2}}" label="Start:" disabled id=""></paper-input>
+ <paper-input type="text" id="waypoint2"  value="{{end3::input}}" label="Add location">
+<iron-icon icon="maps:add-location" suffix></iron-icon>
+ </paper-input>
     <vaadin-date-picker id="date3" label="Pick a date:"></vaadin-date-picker>
    </paper-material>
 
    <paper-material elevation="1">
    <!-- change -->
-     <paper-input type="text"  value="{{end3}}" label="Start:" id=""></paper-input> 
-   <paper-input type="text" id="waypoint3" label="end:"></paper-input>
+     <paper-input type="text"  value="{{end3}}" label="Start:" disabled id=""></paper-input> 
+   <paper-input type="text" id="waypoint3" label="Add location">
+<iron-icon icon="maps:add-location" suffix></iron-icon>
+   </paper-input>
+
    <vaadin-date-picker id="date3" label="Pick a date:"></vaadin-date-picker>
 
    </paper-material>
    <!-- <button onclick="showcard();">Add</button> -->
    <!-- getting dest. from user -->
+    <paper-fab id="adding" style="float:left; left:10px; bottom:10px;
+   " onclick="" icon="add" title="add"></paper-fab>
 
 </div>
 <style is="custom-style">
@@ -287,8 +310,7 @@ function triptype() {
    </paper-dialog> -->
    <!-- </section> -->
    <!-- </paper-material> -->
-    <paper-fab id="adding" style="float:left; left:10px; bottom:10px;
-   " onclick="" icon="add" title="add"></paper-fab>
+   
 
       <paper-fab id="submit" style="float:right; right:10px; bottom:10px;
    " onclick="wave.selectNext()" icon="image:navigate-next" title="next"></paper-fab>
@@ -311,6 +333,10 @@ function triptype() {
     <div id="map"></div>
         <br>
        <!-- <paper-button raised  style="text-align: center; margin-left: auto; margin-right: auto;" class="custom indigo" onclick="wave.selectNext()"><iron-icon icon="forward"></iron-icon>Next</paper-button> -->
+   
+     <paper-fab  style="float:left; left:10px; bottom:10px;
+   " onclick="wave.selectPrevious()" icon="image:navigate-before" title="back"></paper-fab>
+
    <paper-fab  style="float:right; right:10px; bottom:10px;
    " onclick="wave.selectNext()" icon="image:navigate-next" title="next"></paper-fab>
    </div>
@@ -452,8 +478,8 @@ border:none;
      <!-- <paper-button raised style="float:right;" class="custom indigo" onclick="javascript:location.href='https://www.payumoney.com/paybypayumoney/#/119303'">
      <iron-icon icon="store"></iron-icon>
      Checkout</paper-button> -->
-     <paper-fab style="float:left;bottom:10px;" onclick="wave.selectNext();terms.checked=false;" icon="image:navigate-before" title="next"></paper-fab>
-     <paper-fab style="float:right;bottom:10px;" onclick="javascript:location.href='https://www.payumoney.com/paybypayumoney/#/119303'" icon="check" title="checkout"></paper-fab>
+     <paper-fab style="float:left;bottom:10px;" onclick="wave.selectNext();terms.checked=false;" icon="image:navigate-before" title="back"></paper-fab>
+     <paper-fab style="float:right;bottom:10px;" onclick="javascript:location.href='https://www.payumoney.com/paybypayumoney/#/119303'" icon="maps:local-atm" title="checkout"></paper-fab>
   </div>
  
     <!--  <div class="pm-button"><a href="https://www.payumoney.com/paybypayumoney/#/119303"><img src="https://www.payumoney.com//media/images/payby_payumoney/buttons/131.png" /></a></div> -->
@@ -569,8 +595,8 @@ function ishotel() {
      <br>
  </paper-material>
    
-     <paper-fab  style="float:right; right:10px; bottom:10px;
-   " onclick="wave.selectNext()" icon="image:navigate-next" title="next"></paper-fab>
+     <paper-fab  style="float:left; left:10px; bottom:10px;
+   " onclick="wave.selectNext()" icon="image:navigate-before" title="back"></paper-fab>
    </div>
 
    </iron-pages>
@@ -710,10 +736,14 @@ if(document.getElementById('waypoint1').value!=0)
         //   }
         // }
         console.log(waypts);
-
+        var mm=document.getElementById('start').value;
+if(5>4){
+  var nn=document.getElementById('end').value;
+}
+        console.log(mm,nn);
         directionsService.route({
-          origin: document.getElementById('start').value,
-          destination: document.getElementById('end').value,
+          origin: mm,
+          destination: nn,
           waypoints: waypts,
           optimizeWaypoints: false,
           travelMode: google.maps.TravelMode.DRIVING
@@ -728,7 +758,18 @@ if(document.getElementById('waypoint1').value!=0)
             var totalamount=0;
             for (var i = 0; i < route.legs.length; i++) {
               var routeSegment = i + 1;
-              details.innerHTML += '<b>Total kms of route : ' + routeSegment +
+              if(i==0)
+              {
+              details.innerHTML +='<iron-icon icon="maps:near-me" prefix></iron-icon>'+'&nbsp;' +' Starting From : <br>';
+            }
+               else if (i==(route.legs.length-1)) {
+           details.innerHTML +='<iron-icon icon="maps:my-location" prefix></iron-icon>'+'&nbsp;' +' Ending at : <br>';
+         }
+         else {
+           details.innerHTML += '<iron-icon icon="maps:directions" prefix></iron-icon>'+'&nbsp;' +' Next tour : <br>';
+         }
+
+              details.innerHTML += '<b>Route : ' + routeSegment +
                   '</b><br>';
               details.innerHTML += route.legs[i].start_address + ' to ';
               details.innerHTML += route.legs[i].end_address + '<br>';
@@ -736,7 +777,8 @@ if(document.getElementById('waypoint1').value!=0)
              totaldistance = totaldistance+route.legs[i].distance.value;
             }
 console.log(totaldistance=totaldistance/1000);
-document.getElementById('bill').innerHTML='Total distance is ' +totaldistance+' Kms';
+
+document.getElementById('bill').innerHTML='<iron-icon icon="maps:local-taxi" prefix></iron-icon>'+'&nbsp;' +'Total distance is ' +totaldistance+' Kms';
 
 document.getElementById('tariffdetails').rows[3].cells[1].innerHTML=totaldistance+' Kms';
 
